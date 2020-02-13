@@ -26,25 +26,105 @@
 
 const followersArray = [];
 
-/* Step 3: Create a function that accepts a single object as its only argument,
-          Using DOM methods and properties, create a component that will return the following DOM element:
+function createCard(data) {
 
-<div class="card">
-  <img src={image url of user} />
-  <div class="card-info">
-    <h3 class="name">{users name}</h3>
-    <p class="username">{users user name}</p>
-    <p>Location: {users location}</p>
-    <p>Profile:  
-      <a href={address to users github page}>{address to users github page}</a>
-    </p>
-    <p>Followers: {users followers count}</p>
-    <p>Following: {users following count}</p>
-    <p>Bio: {users bio}</p>
-  </div>
-</div>
+  //declare the variables
 
-*/
+const newCard = document.createElement('div'),
+      newImg = document.createElement('img'),
+      newCardInfo = document.createElement('div'),
+      name = document.createElement('h3'),
+      username = document.createElement('p'),
+      location = document.createElement('p'),
+      profile = document.createElement('p'),
+      profileUrl = document.createElement('a'),
+      followers = document.createElement('p'),
+      following = document.createElement('p'),
+      bio = document.createElement('p');
+  
+  
+  // 
+      newCard.appendChild(newImg);
+      newCard.appendChild(newCardInfo);
+      newCardInfo.appendChild(name);
+      newCardInfo.appendChild(username);
+      newCardInfo.appendChild(location);
+      newCardInfo.appendChild(profile);
+      newCardInfo.appendChild(followers);
+      newCardInfo.appendChild(following);
+      newCardInfo.appendChild(bio);
+      newCardInfo.appendChild(profileUrl);
+
+
+      newCard.classList.add('card');
+      newCardInfo.classList.add('card-info');
+      name.classList.add('name');
+      username.classList.add('username');
+      
+
+      newImg.src = data.avatar_url;
+      username.textContent = data.login;
+      followers.textContent = data.followers;
+      following.textContent = data.following;
+      name.textContent = data.name;
+      location.textContent = data.location;
+      profileUrl.textContent = data.url;
+      profileUrl.href = data.url;
+      profile.textContent = 'Profile:';
+      bio.textContent = `Bio: ${data.bio}`;
+   
+
+      return newCard;
+      console.log(newCard);
+}
+
+
+const cards = document.querySelector('.cards');
+
+axios.get('https://api.github.com/users/idongessien')
+  .then(function (response) {
+    const myCard = createCard(response.data);
+    cards.appendChild(myCard);
+    console.log(response.data);
+    return response.data.followers_url;
+
+    // const myCard = createCard(response.data);
+    // console.log(response.data);
+  })
+  .catch(function (error) {
+    console.log('data not returned', error);
+  });
+  axios.get('https://api.github.com/users/ardissam0')
+  .then(function (response) {
+    const myCard = createCard(response.data);
+    cards.appendChild(myCard);
+    console.log(response.data);
+    return response.data.followers_url;
+
+    // const myCard = createCard(response.data);
+    // console.log(response.data);
+  })
+  .catch(function (error) {
+    console.log('data not returned', error);
+  });
+ 
+
+
+  
+  axios.get('https://api.github.com/users/ArtmanG')
+  .then(function (response) {
+    const myCard = createCard(response.data);
+    cards.appendChild(myCard);
+    console.log(response.data);
+    return response.data.followers_url;
+
+    // const myCard = createCard(response.data);
+    // console.log(response.data);
+  })
+  .catch(function (error) {
+    console.log('data not returned', error);
+  });
+
 
 /* List of LS Instructors Github username's: 
   tetondan
